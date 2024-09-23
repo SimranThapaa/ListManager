@@ -20,8 +20,8 @@ const Alert = ({ type, msg, removeAlert, list }) => {
 
   return (
     <div
-      className={`fixed bottom-5 left-0 p-4 rounded-e-md text-white z-10 ${bgColor} transition-all duration-500 transform ${
-        slideIn ? "translate-x-0" : "-translate-x-full"
+      className={`fixed bottom-5 right-0 p-4 rounded-s-md text-white z-10 ${bgColor} transition-all duration-500 transform ${
+        slideIn ? "translate-x-0" : "translate-x-full"
       }`}
       style={{ width: "250px" }}
     >

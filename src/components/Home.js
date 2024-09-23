@@ -14,7 +14,7 @@ const Home = () => {
   const [list, setList] = useState(getLocalStorage());
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditID] = useState(null);
-  const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
+  const [alert, setAlert] = useState({ show: false, type: "", msg: "" });
   const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = (e) => {
@@ -33,7 +33,7 @@ const Home = () => {
       showAlert(true, "success", "Value changed");
     } else {
       const newItem = { id: new Date().getTime().toString(), title: name };
-      setList([...list, newItem]);
+      setList([newItem, ...list]);
       showAlert(true, "success", "Item added to the list");
     }
 
@@ -47,21 +47,21 @@ const Home = () => {
   };
 
   const removeItem = (id) => {
-    showAlert(true, "danger", "Item removed");
     setList(list.filter((item) => item.id !== id));
+    showAlert(true, "danger", "Item removed");
   };
 
   const editItem = (id) => {
-    const specificItem = list.find((item) => item.id === id);
+    const updatedItem = list.find((item) => item.id === id);
     setIsEditing(true);
     setEditID(id);
-    setName(specificItem.title);
+    setName(updatedItem.title);
     setShowModal(true);
   };
 
   const clearList = () => {
-    showAlert(true, "danger", "List cleared");
     setList([]);
+    showAlert(true, "danger", "List cleared");
   };
 
   useEffect(() => {
@@ -69,19 +69,21 @@ const Home = () => {
   }, [list]);
 
   return (
-    <div className="container flex items-center justify-center h-screen">
-      <section className="list-manager-container">
+    <div className="container flex items-center justify-center h-screen px-5 mx-auto">
+      <section className="list-manager-container max-w-md w-full">
         <div className="text-center text-primary">
-          <h1 className="font-bold text-5xl">List Manager</h1>
-          <div className="text-xl font-semibold my-5">
-            Effortlessly Manage Your Items
+          <h1 className="font-bold text-xl sm:text-2xl md:text-3xl lg:text-5xl">
+            List Manager
+          </h1>
+          <div className="text-base md:text-lg lg:text-xl md:text- font-semibold my-5">
+            "Effortlessly Manage Your Items"
           </div>
           <button
             className="btn btn-success border-black py-2 px-5 outline-none rounded-3xl bg-primary text-white flex items-center gap-2 hover:shadow-lg transition-transform duration-200 ease-in-out"
             onClick={() => {
-              setShowModal(true);
               setName("");
               setIsEditing(false);
+              setShowModal(true);
             }}
           >
             <FaPlus /> Add items

@@ -14,7 +14,7 @@ const Modal = ({
   const onSubmit = (e) => {
     e.preventDefault();
     handleSubmit(e);
-    handleClose();
+    // handleClose();
   };
 
   return (

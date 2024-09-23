@@ -20,7 +20,7 @@ const List = ({ items, removeItem, editItem }) => {
                 </button>
                 <button
                   type="button"
-                  className="remove-btn  text-primary hover:text-electricBlue"
+                  className="remove-btn  text-primary hover:text-red-600"
                   onClick={() => removeItem(id)}
                 >
                   <FaTrash />
