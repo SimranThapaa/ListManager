@@ -16,6 +16,7 @@ const Home = () => {
   const [editId, setEditID] = useState(null);
   const [alert, setAlert] = useState({ show: false, type: "", msg: "" });
   const [showModal, setShowModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,12 +42,18 @@ const Home = () => {
     setIsEditing(false);
     setShowModal(false);
   };
+  const confirmDelete = () => {
+    setList([]);
+    showAlert(true, "danger", "List cleared");
+    setShowModal(false);
+  };
 
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
 
   const removeItem = (id) => {
+    setShowModal(false);
     setList(list.filter((item) => item.id !== id));
     showAlert(true, "danger", "Item removed");
   };
@@ -54,15 +61,20 @@ const Home = () => {
   const editItem = (id) => {
     const updatedItem = list.find((item) => item.id === id);
     setIsEditing(true);
+    setIsDeleting(false);
     setEditID(id);
     setName(updatedItem.title);
     setShowModal(true);
   };
-
-  const clearList = () => {
-    setList([]);
-    showAlert(true, "danger", "List cleared");
+  const openDeleteModal = () => {
+    setIsDeleting(true);
+    setShowModal(true);
   };
+
+  // const clearList = () => {
+  //   setList([]);
+  //   showAlert(true, "danger", "List cleared");
+  // };
 
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(list));
@@ -83,6 +95,7 @@ const Home = () => {
             onClick={() => {
               setName("");
               setIsEditing(false);
+              setIsDeleting(false);
               setShowModal(true);
             }}
           >
@@ -96,9 +109,13 @@ const Home = () => {
           <div className="mt-10">
             <div className="flex items-center justify-between p-5 bg-primary text-white rounded-t-lg">
               <div className="text-bold">List Items</div>
-              <button
+              {/* <button
                 className="btn-clear rounded-3xl py-2 px-2.5 border bg-white border-white text-primary hover:text-white  hover:bg-primary transition-transform duration-200 ease-in-out"
                 onClick={clearList}
+              > */}
+              <button
+                className="btn-clear rounded-3xl py-2 px-2.5 border bg-white border-white text-primary hover:text-white hover:bg-primary transition-transform duration-200 ease-in-out"
+                onClick={openDeleteModal}
               >
                 Delete all items
               </button>
@@ -117,6 +134,8 @@ const Home = () => {
         name={name}
         setName={setName}
         isEditing={isEditing}
+        isDeleting={isDeleting}
+        confirmDelete={confirmDelete}
       />
     </div>
   );

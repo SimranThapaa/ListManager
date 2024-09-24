@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import Modal from "./Modal";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 const List = ({ items, removeItem, editItem }) => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+
+  const openDeleteModal = (item) => {
+    setItemToDelete(item);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = () => {
+    removeItem(itemToDelete.id);
+    setShowDeleteModal(false);
+  };
+
   return (
     <div className="list-container mt-5 w-full max-w-md mx-auto">
       {items.map((item) => {
@@ -21,7 +35,7 @@ const List = ({ items, removeItem, editItem }) => {
                 <button
                   type="button"
                   className="remove-btn  text-primary hover:text-red-600"
-                  onClick={() => removeItem(id)}
+                  onClick={() => openDeleteModal(item)}
                 >
                   <FaTrash />
                 </button>
@@ -30,6 +44,14 @@ const List = ({ items, removeItem, editItem }) => {
           </ul>
         );
       })}
+      {showDeleteModal && (
+        <Modal
+          show={showDeleteModal}
+          handleClose={() => setShowDeleteModal(false)}
+          isDeleting={true}
+          confirmDelete={confirmDelete}
+        />
+      )}
     </div>
   );
 };
