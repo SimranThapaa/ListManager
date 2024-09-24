@@ -56,6 +56,4 @@ Ensure that you have the following installed on your machine:
    npm run start
    ```
 
-### Installation
-
 The application will be available at http://localhost:3000.
