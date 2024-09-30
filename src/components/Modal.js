@@ -10,6 +10,7 @@ const Modal = ({
   isEditing,
   isDeleting,
   confirmDelete,
+  deleteMessage,
 }) => {
   if (!show) return null;
 
@@ -34,9 +35,7 @@ const Modal = ({
             <h2 className="text-2xl font-bold mb-4 text-center text-primary">
               Confirm Deletion
             </h2>
-            <p className="text-center mb-4">
-              Are you sure you want to delete this list?
-            </p>
+            <p className="text-center mb-4 confirm_message">{deleteMessage}</p>
             <div className="flex justify-end gap-2">
               <button
                 type="button"

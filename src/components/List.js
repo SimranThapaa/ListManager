@@ -11,7 +11,7 @@ const List = ({ items, removeItem, editItem }) => {
     setShowDeleteModal(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDeleteItem = () => {
     removeItem(itemToDelete.id);
     setShowDeleteModal(false);
   };
@@ -49,7 +49,8 @@ const List = ({ items, removeItem, editItem }) => {
           show={showDeleteModal}
           handleClose={() => setShowDeleteModal(false)}
           isDeleting={true}
-          confirmDelete={confirmDelete}
+          confirmDelete={confirmDeleteItem}
+          deleteMessage={`Are you sure you want to delete "${itemToDelete?.title}" from the list?`}
         />
       )}
     </div>

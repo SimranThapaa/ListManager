@@ -42,7 +42,7 @@ const Home = () => {
     setIsEditing(false);
     setShowModal(false);
   };
-  const confirmDelete = () => {
+  const confirmDeleteAll = () => {
     setList([]);
     showAlert(true, "danger", "List cleared");
     setShowModal(false);
@@ -135,7 +135,8 @@ const Home = () => {
         setName={setName}
         isEditing={isEditing}
         isDeleting={isDeleting}
-        confirmDelete={confirmDelete}
+        confirmDelete={confirmDeleteAll}
+        deleteMessage="Are you sure you want to delete the entire list?"
       />
     </div>
   );

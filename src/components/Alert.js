@@ -10,8 +10,8 @@ const Alert = ({ type, msg, removeAlert, list }) => {
       setSlideIn(false);
       setTimeout(() => {
         removeAlert();
-      }, 500);
-    }, 3000);
+      }, 250);
+    }, 2000);
 
     return () => clearTimeout(timeout);
   }, [list, removeAlert]);
